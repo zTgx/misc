@@ -20,6 +20,38 @@ namespace attrs = boost::log::attributes;
 namespace src = boost::log::sources;
 namespace keywords = boost::log::keywords;
 
+// Here we define our application severity levels.
+enum severity_level
+{
+    normal,
+    notification,
+    warning,
+    error,
+    critical
+};
+
+
+template< typename CharT, typename TraitsT >
+inline std::basic_ostream< CharT, TraitsT >& operator<< (
+    std::basic_ostream< CharT, TraitsT >& strm, severity_level lvl)
+{
+    static const char* const str[] =
+    {
+        "normal",
+        "notification",
+        "warning",
+        "error",
+        "critical"
+    };
+    if (static_cast< std::size_t >(lvl) < (sizeof(str) / sizeof(*str)))
+        strm << str[lvl];
+    else
+        strm << static_cast< int >(lvl);
+    return strm;
+}
+
+
+
 int main()
 {
     typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;
@@ -35,6 +67,10 @@ int main()
     
     pSink->set_formatter(expr::stream << expr::format_date_time<boost::posix_time::ptime>("TimeStamp", "%Y-%m-%d %H:%M:%S") <<
                                  " " <<
+                                 "[" <<
+                                 expr::attr<severity_level>("Severity") << 
+                                 "]" <<
+                                 " " <<
                                  expr::message);
 
     // Ok, we're ready to add the sink to the logging library
@@ -49,6 +85,11 @@ int main()
     BOOST_LOG(lg) << "Some log line with a counter";
     BOOST_LOG(lg) << "Another log line with the counter";
     BOOST_LOG(lg) << "Log Ended";
+
+    src::severity_logger<severity_level> slg;
+    BOOST_LOG_SEV(slg, normal) << "A normal severity message";
+    BOOST_LOG_SEV(slg, warning) << "A warning severity message";
+    BOOST_LOG_SEV(slg, error) << "An error severity message";
 }
 
 
