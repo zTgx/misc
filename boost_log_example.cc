@@ -60,8 +60,9 @@ int main()
     
     boost::shared_ptr< std::ostream > pStream(&std::clog, boost::null_deleter());
     pBackend->add_stream(pStream);
-
-    boost::shared_ptr< std::ofstream > pStream2(new std::ofstream("sample.log"));
+    
+    //All output operations happen at the end of the file, appending to its existing contents.
+    boost::shared_ptr< std::ofstream > pStream2(new std::ofstream("sample.log", std::ofstream::app));
     assert(pStream2->is_open());
     pBackend->add_stream(pStream2);
     
