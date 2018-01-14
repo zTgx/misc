@@ -1,0 +1,13 @@
+project(unittest)
+cmake_minimum_required(VERSION 2.8)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_CXX_FLAGSD "${CMAKE_CXX_FLAGS} -O0 -Wall -g -ggdb")
+
+aux_source_directory(./ SRCS)
+add_executable(unittest ${SRCS})
+
+include_directories(/usr/local)
+target_link_libraries(unittest libgtest.a)
+target_link_libraries(unittest libgtest_main.a)
+target_link_libraries(unittest -lpthread)
