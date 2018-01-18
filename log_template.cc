@@ -47,6 +47,13 @@ public:
         printf("message = %s\n " ,  message.str().c_str());
     }
     
+    //manipulators
+    B& operator<<(std::ostream& (*data)(std::ostream&))
+    {
+        message << data;
+        return *this;
+    }
+    
     template<typename T>
     B& operator<<(const T& data)
     {
@@ -105,4 +112,5 @@ int main()
     LOG(detail::info) << "info" << "info ok";
     LOG(detail::error) << "error" << " " << "error";
     LOG(detail::debug) << "XXX" << "YYY" << "ZZZ";
+    LOG(detail::fatal) << "fatal" << std::endl; //manipulators
 }
