@@ -1,2 +1,2 @@
 # misc
-misc codes
+misc code snippets
