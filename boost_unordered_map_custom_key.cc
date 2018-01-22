@@ -7,8 +7,8 @@ using namespace std;
 
 struct person
 {
-    int ttl;
-    boost::asio::ip::tcp::endpoint ep;
+        int ttl;
+        boost::asio::ip::tcp::endpoint ep;
 
 	person(int ttl, boost::asio::ip::tcp::endpoint ep)
 	{
@@ -30,15 +30,15 @@ size_t hash_value(const person& p)
 int main()
 {
 	typedef boost::unordered_map<person,int> umap;
-    umap m;
+        umap m;
 
 	person p4(23, boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string("1.1.1.1"), 3333));
-    m.insert(umap::value_type(p4, 999));
+        m.insert(umap::value_type(p4, 999));
 
-    for(umap::iterator it=m.begin(); it != m.end(); it++)
-    {
-        std::cout << (*it).first.ttl << std::endl;
-    }
+        for(umap::iterator it=m.begin(); it != m.end(); it++)
+        {
+            std::cout << (*it).first.ttl << std::endl;
+        }
 }
 
 
