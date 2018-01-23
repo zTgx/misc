@@ -22,6 +22,16 @@ struct person
 	}
 };
 
+//hash_value function MUST BE at the same level with [person]' outerclass.
+//For Example:
+//class This_Demo 
+//{
+//    struct person
+//    {};
+//};
+//
+//size_t hash_value(const This_Demo::person& p)
+//{ xxx }
 size_t hash_value(const person& p)
 {
     return boost::hash_value(p.ep.address().to_v4().to_ulong());
