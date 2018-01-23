@@ -35,6 +35,11 @@ struct person
 size_t hash_value(const person& p)
 {
     return boost::hash_value(p.ep.address().to_v4().to_ulong());
+	
+    //std::size_t seed = 0;
+    //boost::hash_combine(seed, xxx);
+    //boost::hash_combine(seed, yyy);
+    //return seed;
 }
 
 int main()
