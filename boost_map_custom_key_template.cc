@@ -14,7 +14,7 @@ class OuterClass
 };
 
 template <typename T = std::allocator<char>>
-std::size_t hash_value(const typename OuterClass<Allocator>::CustomKey& key)
+std::size_t hash_value(const typename OuterClass<Allocator>::CustomKey& key) //typename 的用法，此处不加typename的话，编译器不知道::后面的CustomKey是成员变量还是类型
 {
 	std::size_t seed{0};
 
