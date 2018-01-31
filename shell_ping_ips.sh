@@ -14,9 +14,9 @@
 
 while read line
 do
-    echo $line #ip
-    echo $0 "'s pid = " $$ #shell pid
-    timeout 1 ping -c 1 $line #set timeout , and ping
+    #echo $line #ip
+    #echo $0 "'s pid = " $$ #shell pid
+    timeout 1 ping -c 1 $line > /dev/null #set timeout , and ping
     ret=$? #save ping return status to ret
     if [ $ret -ne 0 ]; then 
         echo "this ip is not known : " $line
