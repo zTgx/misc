@@ -1,3 +1,5 @@
+//From :https://lists.boost.org/Archives/boost/att-189469/weak_fn.hpp
+
 //There is no content to preview.
 
 #ifndef BOOST_WEAK_FN_HPP
