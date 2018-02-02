@@ -1,7 +1,3 @@
-//From :https://lists.boost.org/Archives/boost/att-189469/weak_fn.hpp
-
-//There is no content to preview.
-
 #ifndef BOOST_WEAK_FN_HPP
 #define BOOST_WEAK_FN_HPP
 
@@ -10,7 +6,8 @@
 
 namespace std {
 
-struct ignore_if_invalid { void operator()() const {} };
+template <typename T = void>
+struct ignore_if_invalid { T operator()() const {} };
 
 template <typename V = void>
 struct throw_if_invalid {
@@ -32,7 +29,9 @@ private:
     V def_value_;
 };
 
-typedef ignore_if_invalid default_invalid_policy;
+template <typename T>
+using default_invalid_policy = ignore_if_invalid<T>;
+//typedef ignore_if_invalid default_invalid_policy;
 
 } // namespace std
 
@@ -56,11 +55,9 @@ public:
     R operator()(Args... args)
     {
         if (std::shared_ptr<T> ptr = ptr_.lock()) {
-            std::cout << "lock ok" << std::endl;
             return ((*ptr).*mem_fn_)(args...);
         } else {
-            std::cout << "lock not ok" << std::endl;
- //           return policy_();
+            return policy_();
         }
     }
 
@@ -87,6 +84,9 @@ private:
  *     void bar(int i) {
  *         std::cout << i << std::endl;
  *     }
+ *     int have_return() {
+ *         return 1;
+ *     }
  * };
  *
  * struct do_something {
@@ -104,6 +104,10 @@ private:
  *     sp.reset();
  *     std::bind(std::weak_fn(&Foo::bar, wp), 1)();
  *     std::bind(std::weak_fn(&Foo::bar, wp, do_something()), 1)();
+ *     
+ *     FIX: 2
+ *     FIX BIND RETURN VALUE FUNCTION COMPILE ERROR!!! 
+ *     std::cout << "return value = " << std::bind(std::weak_fn(&Foo::have_return, wp))() << std::endl;
  * }
  */
 template <typename T, typename R, typename Policy, typename... Args>
@@ -117,12 +121,12 @@ detail::weak_fn_storage<T, R, Policy, Args...> weak_fn(
 }
 
 template <typename T, typename R, typename... Args>
-detail::weak_fn_storage<T, R, default_invalid_policy, Args...> weak_fn(
+detail::weak_fn_storage<T, R, default_invalid_policy<R>, Args...> weak_fn(
         R (T::*mem_fn)(Args...),
         const std::weak_ptr<T>& ptr)
 {
-    return detail::weak_fn_storage<T, R, default_invalid_policy, Args...>
-        (mem_fn, ptr, default_invalid_policy());
+    return detail::weak_fn_storage<T, R, default_invalid_policy<R>, Args...>
+        (mem_fn, ptr, default_invalid_policy<R>());
 }
 
 } // namespace std
