@@ -1,3 +1,5 @@
+#include <type_traits>
+
 template <bool isConst, typename T>
 struct maybe_const
 {
