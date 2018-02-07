@@ -41,3 +41,6 @@ int main()
         std::cout << "lexical cast fail." << std::endl;
     }
 }
+
+//try_lexical_cast(ou, in)
+//convert [ou] to [in]
