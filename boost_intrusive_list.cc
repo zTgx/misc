@@ -36,7 +36,12 @@ int main()
         std::cout << iter->v_ << "\t";
     }
     
-    list.clear();
+    /*
+    t: /usr/local/include/boost/intrusive/detail/generic_hook.hpp:47: 
+    void boost::intrusive::detail::destructor_impl(Hook&, boost::intrusive::detail::link_dispatch<(boost::intrusive::link_mode_type)1u>) [with Hook = boost::intrusive::generic_hook<boost::intrusive::circular_list_algorithms<boost::intrusive::list_node_traits<void*> >, boost::intrusive::dft_tag, (boost::intrusive::link_mode_type)1u, (boost::intrusive::base_hook_type)1u>]: Assertion `!hook.is_linked()' failed.
+    Aborted (core dumped)
+    */
+    list.clear(); //if not clear, occured a assert.
 
     for(auto iter=v.begin(); iter != v.end();)
     {
