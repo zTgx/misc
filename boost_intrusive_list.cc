@@ -42,6 +42,9 @@ int main()
     Aborted (core dumped)
     */
     list.clear(); //if not clear, occured a assert.
+    //考虑link_mode的设置
+    //http://www.boost.org/doc/libs/1_40_0/doc/html/boost/intrusive/link_mode_type.html
+    //auto_unllik or normal_link
 
     for(auto iter=v.begin(); iter != v.end();)
     {
