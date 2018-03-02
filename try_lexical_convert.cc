@@ -42,5 +42,22 @@ int main()
     }
 }
 
+//ALERT！！！！
 //try_lexical_cast(ou, in)
 //convert [ou] to [in]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
