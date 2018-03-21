@@ -86,6 +86,8 @@ echo -e "\\033[0;34mLua script Hex :"
 echo -e "\\033[0m"${payloadHex}
 echo 
 
+#sed s/[[:space:]]//g 删除所有的空格
+
 returnvalue=""
 function callcurl()
 {
