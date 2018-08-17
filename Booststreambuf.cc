@@ -25,6 +25,15 @@
  *
  * std::istream is(&b);
  * std::string s;
+ * boost::asio::streambuf stream_buf;
+ * std::string s( (std::istreambuf_iterator<char>(&stream_buf)), std::istreambuf_iterator<char>() );
+
+class basic_streambuf
+  : public std::streambuf,
+    private noncopyable
+{
+};
+
 
 //boost_1_57_0/boost/asio/basic_streambuf.hpp
 
