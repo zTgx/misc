@@ -1,0 +1,6 @@
+#include <boost/timer.hpp>
+timer t_ogm;
+......
+some handle steps
+......
+float time_cost = t_ogm.elapsed();//返回处理处理时间,秒
