@@ -1,4 +1,6 @@
- * @par Examples
+http://www.cplusplus.com/reference/streambuf/streambuf/ 
+
+* @par Examples
  * Writing directly from an streambuf to a socket:
  * @code
  * boost::asio::streambuf b;
